@@ -1,27 +1,28 @@
 import "./App.css";
 import React from "react";
 import { connect } from "react-redux";
-import { Switch, Route, withRouter} from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { useEffect } from "react";
 import LoginForm from "./User/LoginForm";
 import Navbar from "./NavBar/NavBar";
 import Error from "./Error";
 import SignupForm from "./User/SignupForm";
 import PostContainer from "./Post/PostContainer";
-import TrendingContainer from "./Trending/TrendingContainer"
-import NewPost from "./Post/NewPostForm"
-import Profile from "./User/Profile"
+import TrendingContainer from "./Trending/TrendingContainer";
+import NewPost from "./Post/NewPostForm";
+import Profile from "./User/Profile";
+import ShowPost from "./Post/ShowPost"
 
-const post_url = "http://localhost:3000/posts"
-const catgory_url = "http://localhost:3000/categories"
+const post_url = "http://localhost:3000/posts";
+const catgory_url = "http://localhost:3000/categories";
 
 const promises = Promise.all([fetch(post_url), fetch(catgory_url)]);
 
 function App(props) {
   useEffect(() => {
     promises
-    .then(results => Promise.all(results.map(r => r.json())))
-    .then(res => {
+      .then((results) => Promise.all(results.map((r) => r.json())))
+      .then((res) => {
         props.setPosts(res[0]);
         props.setCategories(res[1]);
       });
@@ -39,21 +40,20 @@ function App(props) {
           }
         });
     }
-  },[]);
+  }, []);
 
-  // showSinglePost = (routerProps) => {
-  //   let id = routerProps.match.params.id
-  //   let num_id = parseInt(id)
-  //   let foundPost = props.allPosts.find(post => post.id === num_id)
-
-  //   if(foundFox){
-  //     return <ShowPost {...routerProps} foundFox={foundFox}/>
-  //   } else {
-  //     return <p>404 Page</p>
-  //   }
-  // }
-
-console.log(props)
+  const showSinglePost = (routerProps) => {
+    let id = routerProps.match.params.id;
+    let num_id = parseInt(id);
+    if (props.allPosts[0]) {
+      let foundPost = props.allPosts.find(post => post.id === num_id)
+      if(foundPost){
+        return <ShowPost {...routerProps} currentPost={foundPost}/>
+      }else {
+          return <Error />
+        }
+    }
+  };
 
   return (
     <>
@@ -86,7 +86,7 @@ console.log(props)
           <PostContainer />
         </Route>
 
-        {/* <Route path="/posts/:id" render={showSinglePost} /> */}
+        <Route path="/posts/:id" render={showSinglePost} />
 
         <Route>
           <Error />
@@ -125,8 +125,8 @@ let mapDispatchToProps = {
 
 let mapStateToProps = (gState) => {
   return {
-    allPosts: gState.postsInfo.posts
-  }
-}
+    allPosts: gState.postsInfo.posts,
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

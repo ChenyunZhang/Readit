@@ -4,13 +4,12 @@ import Searchbar from "./SearchBar";
 import { connect } from "react-redux";
 
 function NavBar(props) {
-
   const handleLogout = () => {
     props.setUserLogout();
     localStorage.clear();
   };
 
-
+  // console.log(props)
   return (
     <>
       <div className="ui internally grid">
@@ -19,11 +18,15 @@ function NavBar(props) {
         <div className="twelve wide column">
           {/* secondary */}
           <div className="ui secondary menu">
-            <Link className="item" to="/">
-              Home
-            </Link>
-            {/* <Link className="item">Contact</Link>
-            <Link className="item">About</Link> */}
+            {props.userInfo.token ? (
+              <Link className="item" to="/userhome">
+                Home
+              </Link>
+            ) : (
+              <Link className="item" to="/">
+                Home
+              </Link>
+            )}
             <div className="item">
               <div className="ui icon input">
                 <Searchbar />
@@ -32,7 +35,9 @@ function NavBar(props) {
             </div>
             {props.userInfo.token ? (
               <div className="right menu">
-                <Link className="item" to="/newpost">Post</Link>
+                <Link className="item" to="/newpost">
+                  Post
+                </Link>
                 <Link className="item" to="/profile">
                   Profile
                 </Link>
@@ -48,13 +53,11 @@ function NavBar(props) {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <i className="user outline icon"></i> {props.userInfo.username}
+                    <i className="user outline icon"></i>{" "}
+                    {props.userInfo.username}
                     <div className="dropdown-menu dropdown-menu-right">
                       <button className="dropdown-item" type="button">
-                        Another action
-                      </button>
-                      <button className="dropdown-item" type="button">
-                        Something else here
+                        under construction
                       </button>
                     </div>
                   </div>

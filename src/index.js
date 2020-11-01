@@ -75,6 +75,14 @@ let userReducer = (state = initialStateOfUserReducer, action) => {
         username: "",
         id: ""
       }
+    case "UPDATE_USER_INFO":
+      return {
+        ...state,
+        username: action.payload.user.username,
+        email: action.payload.user.email,
+        token: action.payload.token,
+        id: action.payload.user.id
+      }
     default:
       return state;
   }

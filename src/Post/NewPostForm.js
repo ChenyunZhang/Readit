@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
+import Nav from "../NavBar/NavBar"
 
 function NewPostForm(props) {
   const [category, setCategory] = useState("");
@@ -32,9 +33,7 @@ function NewPostForm(props) {
 
   return (
     <>
-      <Link to="/userhome">
-        <button className="ui button">Back</button>
-      </Link>
+      <Nav />
       <div className="ui internally grid">
         <div className="five wide column"></div>
         <div className="six wide column">
