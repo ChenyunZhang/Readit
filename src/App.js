@@ -18,7 +18,6 @@ import ResetPassword from "./User/ResetPassword"
 
 const post_url = "http://localhost:3000/posts";
 const catgory_url = "http://localhost:3000/categories";
-
 const promises = Promise.all([fetch(post_url), fetch(catgory_url)]);
 
 function App(props) {

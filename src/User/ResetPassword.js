@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-function ResetPassword() {
+function ResetPassword(props) {
   const [token, setToken] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPassword_confirmation] = useState("");
   const [error, setError] = useState("");
 
+  console.log(props)
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("http://localhost:3000/reset_password", {
@@ -23,10 +26,9 @@ function ResetPassword() {
     })
       .then((r) => r.json())
       .then((resp) => {
-        if (!!resp.message) {
-          setError(resp.message);
-        } else {
-
+        setError(resp.message);
+        if (resp.message==="Your password has been successfuly reset!") {
+          props.history.push("/login");
         }
       });
   };
@@ -45,6 +47,7 @@ function ResetPassword() {
               id="token"
               onChange={(e) => setToken(e.target.value)}
               name="token"
+              autoComplete="off"
               placeholder="code"
               type="token"
               value={token}
@@ -55,6 +58,7 @@ function ResetPassword() {
             <input
               required
               id="email"
+              autoComplete="off"
               onChange={(e) => setEmail(e.target.value)}
               name="email"
               placeholder="email"
@@ -66,6 +70,7 @@ function ResetPassword() {
             <input
               required
               id="password"
+              autoComplete="off"
               onChange={(e) => setPassword(e.target.value)}
               name="password"
               placeholder="password"
@@ -77,6 +82,7 @@ function ResetPassword() {
             <label htmlFor="password_confirmation">Confirm new password:</label>
             <input
               required
+              autoComplete="off"
               id="password_confirmation"
               onChange={(e) => setPassword_confirmation(e.target.value)}
               name="password_confirmation"
@@ -96,4 +102,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default (withRouter(ResetPassword))

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import { OAuthSignInButton } from "redux-auth/bootstrap-theme";
 import { withRouter } from "react-router-dom";
 
 function LoginForm(props) {
@@ -34,9 +33,8 @@ function LoginForm(props) {
   };
 
   const handleGoogle = () => {
-    fetch("".then)
-  }
-  
+    // fetch("".then)
+  };
 
   return (
     <React.Fragment>
@@ -67,13 +65,15 @@ function LoginForm(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClcik={handleGoogle}>Login with google</button>
+            {/* <GoogleLoginButton /> */}
+            {/* <GoogleLogoutButton /> */}
+            <br/>
+            <Link to="/resetpassword">forget password?</Link>
             <br />
             <button className="ui button" type="submit">
               submit
             </button>
           </form>
-          <Link to="/resetpassword">forget password?</Link>
         </div>
         {/* <OAuthSignInButton /> */}
 
