@@ -27,6 +27,7 @@ function NavBar(props) {
                 Home
               </Link>
             )}
+            
             <div className="item">
               <div className="ui icon input">
                 <Searchbar />
@@ -56,9 +57,9 @@ function NavBar(props) {
                     <i className="user outline icon"></i>{" "}
                     {props.userInfo.username}
                     <div className="dropdown-menu dropdown-menu-right">
-                      <button className="dropdown-item" type="button">
+                      <Link className="dropdown-item" to="/profile">
                         under construction
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -66,10 +67,10 @@ function NavBar(props) {
             ) : (
               <div className="right menu">
                 <div className="item">
-                  <Link className="ui item" to="/signup">
+                  <Link className="ui item" to={localStorage.length>0 ? "/userhome" : "/signup"}>
                     Signup
                   </Link>
-                  <Link className="ui item" to="/login">
+                  <Link className="ui item" to={localStorage.length>0 ? "/userhome" : "/login"}>
                     Login
                   </Link>
                 </div>

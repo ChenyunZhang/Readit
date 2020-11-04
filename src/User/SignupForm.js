@@ -8,22 +8,25 @@ function SignupForm(props) {
   const [username, setUsename] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
 
   const handleSignup = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append("username", username);
+    formData.append("password", password);
+    if (imageUrl) {
+      formData.append("avatar", imageUrl);
+    }
+
     fetch("http://localhost:3000/users", {
       method: "POST",
-      headers: {
-        "Content-type": "Application/json",
-      },
-      body: JSON.stringify({
-        email,
-        username,
-        password,
-      }),
+      body: formData,
     })
       .then((r) => r.json())
       .then((resp) => {
+        // console.log(resp)
         if (resp.error) {
           setError(resp.error);
         } else {
@@ -75,11 +78,20 @@ function SignupForm(props) {
               onChange={(e) => setPassword(e.target.value)}
             />
 
+            <input
+              type="file"
+              accept="image/*"
+              multiple={false}
+              id="upload-photo"
+              onChange={(e) => setImageUrl(e.target.files[0])}
+            />
+
+            <br />
+
             <button className="ui button" type="submit">
               submit
             </button>
           </form>
-          <Link to="/"> back </Link>
           <div className="five wide column"></div>
         </div>
       </div>

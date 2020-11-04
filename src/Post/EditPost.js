@@ -1,13 +1,15 @@
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
+import Nav from "../NavBar/NavBar";
 
-function NewPostForm(props) {
-  const [category, setCategory] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [error, setError] = useState("")
+export const EditPost = (props) => {
+//   console.log(props.currentPost.category.title);
+  const [category, setCategory] = useState(props.currentPost.category.id);
+  const [title, setTitle] = useState(props.currentPost.title);
+  const [content, setContent] = useState(props.currentPost.content);
+  const [imageUrl, setImageUrl] = useState(props.currentPost.image);
+  const [error, setError] = useState("");
 
   const categoryArray = props.categoryInfo.categories;
 
@@ -15,41 +17,41 @@ function NewPostForm(props) {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('category_id', category);
-    formData.append('user_id', props.userInfo.id);
-    if(!!imageUrl){
-      formData.append('image',imageUrl)
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("category_id", category);
+    formData.append("user_id", props.userInfo.id);
+    if (imageUrl !== props.currentPost.image) {
+      formData.append("image", imageUrl);
     }
 
-    fetch("http://localhost:3000/posts", {
-      method: "POST",
-      body: formData
+    fetch(`http://localhost:3000/posts/edit/${props.currentPost.id}`, {
+      method: "PATCH",
+      body: formData,
     })
       .then((r) => r.json())
       .then((resp) => {
         if (resp.error) {
           setError(resp.error);
         } else {
-        props.addPost(resp);
-        props.history.push("/userhome");
+          props.updatePost(resp);
+          props.history.push("/userhome");
         }
       });
   };
 
   return (
     <>
+      <Nav />
       <div className="ui internally grid">
         <div className="five wide column"></div>
         <div className="six wide column">
           <form onSubmit={handleSubmit} className="ui form">
-            <h1>Create new post form</h1>
-            {error ? <h3>{error}</h3> : null }
-
+            <h1>Update Post </h1>
+            {error ? <h3>{error}</h3> : null}
             <label htmlFor="category">Category</label>
             <select
-            id="category"
+              id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
@@ -88,7 +90,7 @@ function NewPostForm(props) {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
-
+            {imageUrl ? <img className="ui image" src={imageUrl.url} /> : null}
             <input
               type="file"
               accept="image/*"
@@ -98,7 +100,7 @@ function NewPostForm(props) {
             />
 
             <button type="submit" className="btn btn-primary">
-              Submit
+              Update
             </button>
           </form>
         </div>
@@ -106,12 +108,12 @@ function NewPostForm(props) {
       </div>
     </>
   );
-}
+};
 
-const addPost = (singlePost) => {
+const updatePost = (updateSinglePost) => {
   return {
-    type: "ADD_POST",
-    payload: singlePost,
+    type: "UPDATE_POST",
+    payload: updateSinglePost,
   };
 };
 
@@ -123,7 +125,7 @@ let mapStateToProps = (globalState) => {
 };
 
 let mapDispatch = {
-  addPost: addPost,
+    updatePost: updatePost
 };
 
-export default connect(mapStateToProps, mapDispatch)(withRouter(NewPostForm));
+export default connect(mapStateToProps, mapDispatch)(withRouter(EditPost));

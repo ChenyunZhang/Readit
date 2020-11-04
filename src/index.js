@@ -18,14 +18,33 @@ let postReducer = (state = initialStateOfPostReducer, action) => {
     case "SET_POST":
       return {
         ...state,
-        posts: action.payload
+        posts: action.payload,
       };
     case "ADD_POST":
-      let copyOfPosts = [...state.posts, action.payload]
+      let copyOfPosts = [...state.posts, action.payload];
       return {
         ...state,
-        posts: copyOfPosts
-      }
+        posts: copyOfPosts,
+      };
+    case "DELETE_POST":
+      let copyOfPosts_2 = state.posts.filter(
+        (post) => post.id !== action.payload.id
+      );
+      return {
+        ...state,
+        posts: copyOfPosts_2,
+      };
+    case "UPDATE_POST":
+        let copyOfPost_3 = state.posts.map((post) => {
+          if(post.id === action.payload.id){
+            return action.payload
+          } else {
+            return post
+          }})
+    return {
+      ...state,
+      posts: copyOfPost_3
+    };
 
     default:
       return state;
@@ -42,7 +61,7 @@ let categoryReducer = (state = initialStateOfCategoryReducer, action) => {
     case "SET_CATEGORY":
       return {
         ...state,
-        categories: action.payload
+        categories: action.payload,
       };
     default:
       return state;
@@ -54,7 +73,8 @@ let initialStateOfUserReducer = {
   email: "",
   token: "",
   username: "",
-  id: ""
+  id: "",
+  avatar: "",
 };
 
 let userReducer = (state = initialStateOfUserReducer, action) => {
@@ -65,24 +85,26 @@ let userReducer = (state = initialStateOfUserReducer, action) => {
         username: action.payload.user.username,
         email: action.payload.user.email,
         token: action.payload.token,
-        id: action.payload.user.id
-      }
+        id: action.payload.user.id,
+        avatar: action.payload.user.avatar,
+      };
     case "LOG_OUT":
       return {
         ...state,
         email: "",
         token: "",
         username: "",
-        id: ""
-      }
+        id: "",
+      };
     case "UPDATE_USER_INFO":
       return {
         ...state,
         username: action.payload.user.username,
         email: action.payload.user.email,
         token: action.payload.token,
-        id: action.payload.user.id
-      }
+        avatar: action.payload.user.avatar,
+        id: action.payload.user.id,
+      };
     default:
       return state;
   }
@@ -92,7 +114,7 @@ let userReducer = (state = initialStateOfUserReducer, action) => {
 let infoCamp = {
   postsInfo: postReducer,
   userInfo: userReducer,
-  categoryInfo: categoryReducer
+  categoryInfo: categoryReducer,
 };
 
 let rootReducer = combineReducers(infoCamp);

@@ -3,18 +3,41 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 function PostObj(props) {
-  // console.log(props.post);
   return (
     <React.Fragment>
-      <Link to={`/posts/${props.post.id}`}>
-      <div className="ui tall stacked segment">
-        <p>{props.post.title}</p>
-        <p>{props.post.content}</p>
-        <p>{props.post.category.title}</p>
-      </div>
+      <Link to={`/posts/${props.ownProps.post.id}`} className="custom-link">
+        <div className="ui tall stacked segment">
+          <div className="content">
+            {!!props.ownProps.post.user.avatar ? (
+                <img
+                  className="right floated avatar mini ui image"
+                  src={props.ownProps.post.user.avatar.url}
+                />
+              )
+             : null}
+            <div className="header">{props.ownProps.post.title}</div>
+            <div className="meta">{props.ownProps.post.category.title}</div>
+            <div className="ui segment">
+              {props.post.content}
+              {/* </div>
+            <div className="content"> */}
+              {!!props.ownProps.post.image ? (
+                <img className="ui image" src={props.ownProps.post.image.url} />
+              ) : null}
+            </div>
+          </div>
+        </div>
       </Link>
     </React.Fragment>
   );
 }
 
-export default PostObj
+const mapStateToProps = (gState, ownProps) => {
+  return {
+    postsInfo: gState.postsInfo,
+    ownProps: ownProps,
+    userInfo: gState.userInfo,
+  };
+};
+
+export default connect(mapStateToProps)(PostObj);

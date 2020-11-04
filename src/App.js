@@ -11,7 +11,10 @@ import PostContainer from "./Post/PostContainer";
 import TrendingContainer from "./Trending/TrendingContainer";
 import NewPost from "./Post/NewPostForm";
 import Profile from "./User/Profile";
-import ShowPost from "./Post/ShowPost"
+import ShowPost from "./Post/ShowPost";
+import EditPost from "./Post/EditPost";
+import ForgetPassword from "./User/ForgetPasswordForm"
+import ResetPassword from "./User/ResetPassword"
 
 const post_url = "http://localhost:3000/posts";
 const catgory_url = "http://localhost:3000/categories";
@@ -46,14 +49,28 @@ function App(props) {
     let id = routerProps.match.params.id;
     let num_id = parseInt(id);
     if (props.allPosts[0]) {
-      let foundPost = props.allPosts.find(post => post.id === num_id)
-      if(foundPost){
-        return <ShowPost {...routerProps} currentPost={foundPost}/>
-      }else {
-          return <Error />
-        }
+      let foundPost = props.allPosts.find((post) => post.id === num_id);
+      if (foundPost) {
+        return <ShowPost {...routerProps} currentPost={foundPost} />;
+      } else {
+        return <Error />;
+      }
     }
   };
+
+  const editSinglePost = (routerProps) => {
+    let id = routerProps.match.params.id;
+    let num_id = parseInt(id);
+    if (props.allPosts[0]) {
+      let foundPost = props.allPosts.find((post) => post.id === num_id);
+      if (foundPost) {
+        return <EditPost {...routerProps} currentPost={foundPost} />;
+      } else {
+        return <Error />;
+      }
+    }
+  };
+  
 
   return (
     <>
@@ -65,18 +82,22 @@ function App(props) {
         </Route>
 
         <Route exact path="/login">
+        <Navbar />
           <LoginForm />
         </Route>
 
         <Route exact path="/signup">
+        <Navbar />
           <SignupForm />
         </Route>
 
         <Route exact path="/newpost">
+        <Navbar />
           <NewPost />
         </Route>
 
         <Route exact path="/profile">
+        <Navbar />
           <Profile />
         </Route>
 
@@ -86,7 +107,18 @@ function App(props) {
           <PostContainer />
         </Route>
 
-        <Route path="/posts/:id" render={showSinglePost} />
+        <Route exact path="/resetpassword">
+        <Navbar />
+        <ForgetPassword />
+        </Route>
+
+        <Route exact path="/accountconfirmation">
+        <Navbar />
+        <ResetPassword />
+        </Route>
+
+        <Route path="/posts/:id" exact render={showSinglePost} />
+        <Route path="/posts/edit/:id" exact render={editSinglePost} />
 
         <Route>
           <Error />
