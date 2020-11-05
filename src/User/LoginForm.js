@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 function LoginForm(props) {
   const [email, setEmail] = useState("");
@@ -65,7 +66,7 @@ function LoginForm(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {/* <GoogleLoginButton /> */}
+            <GoogleLoginButton />
             {/* <GoogleLogoutButton /> */}
             <br/>
             <Link to="/resetpassword">forget password?</Link>
