@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const clientId =
-  "689721056086-8iolean7f9v07ujlc2va33ntb6vvl18c.apps.googleusercontent.com";
+  
 
 // const CLIENT_ID = process.env.GOOGLE_ClIENTID
-console.log(process.env.GOOGLE_ClIENTID)
+console.log(process.env)
 
 function GoogleLoginButton(props) {
   const [email, setEmail] = useState("");
