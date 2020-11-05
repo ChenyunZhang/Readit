@@ -1,3 +1,4 @@
+
 import "./App.css";
 import React from "react";
 import { connect } from "react-redux";
@@ -16,6 +17,7 @@ import EditPost from "./Post/EditPost";
 import ForgetPassword from "./User/ForgetPasswordForm"
 import ResetPassword from "./User/ResetPassword"
 
+const dotenv = require('dotenv').config()
 const post_url = "http://localhost:3000/posts";
 const catgory_url = "http://localhost:3000/categories";
 const promises = Promise.all([fetch(post_url), fetch(catgory_url)]);

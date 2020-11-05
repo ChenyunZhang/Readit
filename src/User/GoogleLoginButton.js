@@ -3,11 +3,10 @@ import { GoogleLogin } from "react-google-login";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-const clientId =
-  
+const clienId = process.env.REACT_APP_GOOGLE_CLIENTKEY
 
 // const CLIENT_ID = process.env.GOOGLE_ClIENTID
-console.log(process.env)
+console.log(clienId)
 
 function GoogleLoginButton(props) {
   const [email, setEmail] = useState("");
@@ -17,7 +16,7 @@ function GoogleLoginButton(props) {
   const [gtoken, setGtoken] = useState("");
 
   function responseGoogle(res) {
-    console.log(res);
+    // console.log(res);
     setEmail(res.profileObj.email);
     setUsername(res.profileObj.name);
     setPassword("abc123");
@@ -57,7 +56,7 @@ function GoogleLoginButton(props) {
   return (
     <>
       <GoogleLogin
-        clientId={clientId}
+        clientId={clienId}
         buttonText="login"
         scope="email profile"
         onSuccess={responseGoogle}
