@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
-import PostObj from "../Post/PostObj";
+// import PostObj from "../Post/PostObj";
 
 function Profile(props) {
   const [email, setEmail] = useState(props.userInfo.email);
@@ -67,9 +67,9 @@ function Profile(props) {
     });
   };
 
-  let userPostArray = props.postsInfo.posts
-    .filter((post) => post.user.id === props.userInfo.id)
-    .map((postObj) => <PostObj key={postObj.id} post={postObj} />);
+  // let userPostArray = props.postsInfo.posts
+  //   .filter((post) => post.user.id === props.userInfo.id)
+  //   .map((postObj) => <PostObj key={postObj.id} post={postObj} />);
 
   return (
     <>
@@ -145,7 +145,7 @@ function Profile(props) {
             delete account
           </button>
         </div>
-        <div className="six wide column">{userPostArray}</div>
+        <div className="six wide column"></div>
         <div className="two wide column"></div>
       </div>
     </>

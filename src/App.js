@@ -8,19 +8,21 @@ import LoginForm from "./User/LoginForm";
 import Navbar from "./NavBar/NavBar";
 import Error from "./Error";
 import SignupForm from "./User/SignupForm";
-import PostContainer from "./Post/PostContainer";
 import TrendingContainer from "./Trending/TrendingContainer";
-import NewPost from "./Post/NewPostForm";
 import Profile from "./User/Profile";
-import ShowPost from "./Post/ShowPost";
-import EditPost from "./Post/EditPost";
+import EditReview from "./Post/EditReview";
 import ForgetPassword from "./User/ForgetPasswordForm"
 import ResetPassword from "./User/ResetPassword"
+import BookContainer from "./Book/BookContainer"
+import Filter from "./Trending/Filter"
+import ShowBook from "./Book/ShowBook"
+// import Temp from './Trending/temp'
 
 const dotenv = require('dotenv').config()
 const post_url = "http://localhost:3000/posts";
-const catgory_url = "http://localhost:3000/categories";
-const promises = Promise.all([fetch(post_url), fetch(catgory_url)]);
+// const catgory_url = "http://localhost:3000/categories";
+const book_url = "http://localhost:3000/books";
+const promises = Promise.all([fetch(post_url), fetch(book_url)]);
 
 function App(props) {
   useEffect(() => {
@@ -28,7 +30,8 @@ function App(props) {
       .then((results) => Promise.all(results.map((r) => r.json())))
       .then((res) => {
         props.setPosts(res[0]);
-        props.setCategories(res[1]);
+        // props.setCategories(res[1]);
+        props.setBooks(res[1]);
       });
     if (localStorage.token) {
       fetch("http://localhost:3000/keep_logged_in", {
@@ -46,26 +49,16 @@ function App(props) {
     }
   }, []);
 
-  const showSinglePost = (routerProps) => {
-    let id = routerProps.match.params.id;
-    let num_id = parseInt(id);
-    if (props.allPosts[0]) {
-      let foundPost = props.allPosts.find((post) => post.id === num_id);
-      if (foundPost) {
-        return <ShowPost {...routerProps} currentPost={foundPost} />;
-      } else {
-        return <Error />;
-      }
-    }
-  };
 
-  const editSinglePost = (routerProps) => {
+
+  const showSingleBook = (routerProps) => {
     let id = routerProps.match.params.id;
     let num_id = parseInt(id);
-    if (props.allPosts[0]) {
-      let foundPost = props.allPosts.find((post) => post.id === num_id);
-      if (foundPost) {
-        return <EditPost {...routerProps} currentPost={foundPost} />;
+
+    if (props.allBooks[0]) {
+      let foundBook = props.allBooks.find((book) => book.id === num_id);
+      if (foundBook) {
+        return <ShowBook {...routerProps} currentBook={foundBook} />;
       } else {
         return <Error />;
       }
@@ -79,7 +72,10 @@ function App(props) {
         <Route exact path="/">
           <Navbar />
           <TrendingContainer />
-          <PostContainer />
+          {/* <Temp /> */}
+          <Filter />
+          {/* <PostContainer /> */}
+          <BookContainer />
         </Route>
 
         <Route exact path="/login">
@@ -92,11 +88,6 @@ function App(props) {
           <SignupForm />
         </Route>
 
-        <Route exact path="/newpost">
-        <Navbar />
-          <NewPost />
-        </Route>
-
         <Route exact path="/profile">
         <Navbar />
           <Profile />
@@ -105,7 +96,8 @@ function App(props) {
         <Route exact path="/userhome">
           <Navbar />
           <TrendingContainer />
-          <PostContainer />
+          <Filter />
+          <BookContainer />
         </Route>
 
         <Route exact path="/resetpassword">
@@ -118,8 +110,7 @@ function App(props) {
         <ResetPassword />
         </Route>
 
-        <Route path="/posts/:id" exact render={showSinglePost} />
-        <Route path="/posts/edit/:id" exact render={editSinglePost} />
+        <Route path="/books/:id" exact render={showSingleBook} />
 
         <Route>
           <Error />
@@ -136,13 +127,6 @@ const setPosts = (postArray) => {
   };
 };
 
-const setCategories = (categoryArray) => {
-  return {
-    type: "SET_CATEGORY",
-    payload: categoryArray,
-  };
-};
-
 const setUserInfo = (userInfo) => {
   return {
     type: "SET_USER_INFO",
@@ -150,16 +134,51 @@ const setUserInfo = (userInfo) => {
   };
 };
 
+const setBooks = (bookArray) => {
+  return {
+    type: "SET_BOOK",
+    payload: bookArray,
+  };
+};
+
 let mapDispatchToProps = {
   setPosts: setPosts,
-  setCategories: setCategories,
   setUserInfo: setUserInfo,
+  setBooks: setBooks
 };
 
 let mapStateToProps = (gState) => {
   return {
     allPosts: gState.postsInfo.posts,
+    allBooks: gState.bookInfo.books
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+
+
+  // const showSinglePost = (routerProps) => {
+  //   let id = routerProps.match.params.id;
+  //   let num_id = parseInt(id);
+  //   if (props.allPosts[0]) {
+  //     let foundPost = props.allPosts.find((post) => post.id === num_id);
+  //     if (foundPost) {
+  //       return <ShowPost {...routerProps} currentPost={foundPost} />;
+  //     } else {
+  //       return <Error />;
+  //     }
+  //   }
+  // };
+
+  // const editSinglePost = (routerProps) => {
+  //   let id = routerProps.match.params.id;
+  //   let num_id = parseInt(id);
+  //   if (props.allPosts[0]) {
+  //     let foundPost = props.allPosts.find((post) => post.id === num_id);
+  //     if (foundPost) {
+  //       return <EditReview {...routerProps} currentPost={foundPost} />;
+  //     } else {
+  //       return <Error />;
+  //     }
+  //   }
+  // };

@@ -6,7 +6,6 @@ import { withRouter } from "react-router-dom";
 const clienId = process.env.REACT_APP_GOOGLE_CLIENTKEY
 
 // const CLIENT_ID = process.env.GOOGLE_ClIENTID
-console.log(clienId)
 
 function GoogleLoginButton(props) {
   const [email, setEmail] = useState("");

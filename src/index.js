@@ -52,16 +52,32 @@ let postReducer = (state = initialStateOfPostReducer, action) => {
 };
 
 // ######################## category reducer ###########################
-let initialStateOfCategoryReducer = {
-  categories: [],
+// let initialStateOfCategoryReducer = {
+//   categories: [],
+// };
+
+// let categoryReducer = (state = initialStateOfCategoryReducer, action) => {
+//   switch (action.type) {
+//     case "SET_CATEGORY":
+//       return {
+//         ...state,
+//         categories: action.payload,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+// ######################## book reducer ###########################
+let initialStateOfBookReducer = {
+  books: [],
 };
 
-let categoryReducer = (state = initialStateOfCategoryReducer, action) => {
+let bookReducer = (state = initialStateOfBookReducer, action) => {
   switch (action.type) {
-    case "SET_CATEGORY":
+    case "SET_BOOK":
       return {
         ...state,
-        categories: action.payload,
+        books: action.payload,
       };
     default:
       return state;
@@ -114,7 +130,8 @@ let userReducer = (state = initialStateOfUserReducer, action) => {
 let infoCamp = {
   postsInfo: postReducer,
   userInfo: userReducer,
-  categoryInfo: categoryReducer,
+  // categoryInfo: categoryReducer,
+  bookInfo: bookReducer
 };
 
 let rootReducer = combineReducers(infoCamp);

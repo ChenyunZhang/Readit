@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import GoogleLoginButton from "./GoogleLoginButton";
+// import FacebookLoginButton from "./FacebookLoginButton"
 
 function LoginForm(props) {
   const [email, setEmail] = useState("");
@@ -66,6 +67,7 @@ function LoginForm(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {/* <FacebookLoginButton /> */}
             <GoogleLoginButton />
             {/* <GoogleLogoutButton /> */}
             <br/>

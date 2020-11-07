@@ -1,3 +1,33 @@
-.custom-link{
-    color:black;
+.custom-link {
+  color: black;
+}
+
+body {
+  background: rgba(236, 153, 76, 0.74);
+}
+.sticky-bar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 1px;
+  /* font-size: 1px; */
+}
+
+.test-card.card {
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 4px 4px 15px 2px rgba(blakc, 0.75);
+  transition: 0.4s;
+}
+
+.test-card.card:not(:first-child){
+  margin-left: -1rem;
+}
+
+.test-card.card:hover {
+  transform: translateY(-1rem);
+}
+
+.test-card.card:hover ~ .test-card.card {
+  transform: translateX(-1rem);
 }

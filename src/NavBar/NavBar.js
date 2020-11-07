@@ -36,9 +36,6 @@ function NavBar(props) {
             </div>
             {props.userInfo.token ? (
               <div className="right menu">
-                <Link className="item" to="/newpost">
-                  Post
-                </Link>
                 <Link className="item" to="/profile">
                   Profile
                 </Link>
@@ -81,7 +78,7 @@ function NavBar(props) {
 
         <div className="two wide column"></div>
       </div>
-    </>
+      </>
   );
 }
 

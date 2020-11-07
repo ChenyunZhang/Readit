@@ -16,8 +16,7 @@ function TrendingContainer(props) {
         <div className="two wide column"></div>
         <div className="twelve wide column">
           <h1>Editor's Pick</h1>
-          <div className="ui six cards">
-            <div className="test-card card">
+          <div className="cards">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/9">
@@ -26,7 +25,7 @@ function TrendingContainer(props) {
                 ) : null}
               </div>
             </div>
-            <div className="test-card card">
+            <div className="card">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/39">
@@ -35,7 +34,7 @@ function TrendingContainer(props) {
                 ) : null}
               </div>
             </div>
-            <div className="test-card card">
+            <div className="card">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/23">
@@ -44,7 +43,7 @@ function TrendingContainer(props) {
                 ) : null}
               </div>
             </div>
-            <div className="test-card card">
+            <div className="card">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/27">
@@ -54,7 +53,7 @@ function TrendingContainer(props) {
               </div>
             </div>
 
-            <div className="test-card card">
+            <div className="card">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/5">
@@ -64,7 +63,7 @@ function TrendingContainer(props) {
               </div>
             </div>
 
-            <div className="test-card card">
+            <div className="card">
               <div className="ui fluid image">
                 {props.booksInfo.books[0] ? (
                   <Link to="/books/35">
@@ -76,7 +75,6 @@ function TrendingContainer(props) {
           </div>
         </div>
         <div className="two wide column"></div>
-      </div>
     </>
   );
 }
@@ -88,3 +86,4 @@ const mapStateToProps = (gState, ownProps) => {
   };
 };
 export default connect(mapStateToProps)(TrendingContainer);
+

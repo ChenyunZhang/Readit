@@ -28,7 +28,10 @@ function ResetPassword(props) {
       .then((resp) => {
         setError(resp.message);
         if (resp.message==="Your password has been successfuly reset!") {
-          props.history.push("/login");
+          setTimeout(function(){ props.history.push("/login") }, 3000);
+          setToken("")
+          setEmail("")
+          setPassword("")
         }
       });
   };
