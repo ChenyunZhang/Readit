@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import BookObj from "./BookObj";
 import RankingContainer from "../Ranking/RankingContainer";
+// import Temp from "../Trending/Temp"
 
 function BookContainer(props) {
   const bookArray = props.bookInfo.map((book) => {

@@ -42,57 +42,78 @@ function SignupForm(props) {
       <div className="ui internally grid">
         <div className="five wide column"></div>
         <div className="six wide column">
-          <h1>Signup form</h1>
-          {error ? error : null}
-          <form onSubmit={handleSignup}>
-            <input
-              type="text"
-              name="username"
-              className="form-control"
-              placeholder="username"
-              autoComplete="off"
-              required
-              value={username}
-              onChange={(e) => setUsename(e.target.value)}
-            />
+          <div className="ui cotainer login-in-container">
+            <form onSubmit={handleSignup} className="ui form">
+              <div className="login-form-title">Read it</div>
+              {error ? <div className="error-message">{error}</div> : null}
+              <br/>
+              <div className="ui fluid big input left icon username">
+                <input
+                  type="text"
+                  name="username"
+                  className="form-control"
+                  placeholder="username"
+                  autoComplete="off"
+                  required
+                  value={username}
+                  onChange={(e) => setUsename(e.target.value)}
+                />
+                <i className="user icon" />
+              </div>
+              <div className="ui fluid big left icon input">
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  placeholder="email"
+                  autoComplete="off"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <i className="envelope icon" />
+              </div>
 
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="email"
-              autoComplete="off"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+              <div className="ui fluid big left icon input login-form-password">
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="password"
+                  autoComplete="off"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <i className="key icon" />
+              </div>
 
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="password"
-              autoComplete="off"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <label
+                htmlFor="signup-avatar"
+                class="ui blue big basic button fluid"
+              >
+                {!imageUrl ? `Upload avatar` : `Uploaded one image`}
+              </label>
+              <input
+                type="file"
+                id="signup-avatar"
+                className="inputfile"
+                accept="image/*"
+                multiple={false}
+                onChange={(e) => setImageUrl(e.target.files[0])}
+              />
 
-            <input
-              type="file"
-              accept="image/*"
-              multiple={false}
-              id="upload-photo"
-              onChange={(e) => setImageUrl(e.target.files[0])}
-            />
+              <br />
 
-            <br />
-
-            <button className="ui button" type="submit">
-              submit
-            </button>
-          </form>
-          <div className="five wide column"></div>
+              <button
+                className="ui fluid big teal button login-form-submi"
+                type="submit"
+              >
+                Sign Up
+              </button>
+            </form>
+            <div className="five wide column"></div>
+          </div>
         </div>
       </div>
     </React.Fragment>

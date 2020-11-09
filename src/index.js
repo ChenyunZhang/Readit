@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
+import './tailwind.output.css';
 import App from "./App";
 
 // REDUX STUFF HERE
@@ -51,22 +52,23 @@ let postReducer = (state = initialStateOfPostReducer, action) => {
   }
 };
 
-// ######################## category reducer ###########################
-// let initialStateOfCategoryReducer = {
-//   categories: [],
-// };
+// ######################## searchedBook reducer ###########################
+let initialStateOfSearchedPostsReducer = {
+  searchedBooks: [],
+};
 
-// let categoryReducer = (state = initialStateOfCategoryReducer, action) => {
-//   switch (action.type) {
-//     case "SET_CATEGORY":
-//       return {
-//         ...state,
-//         categories: action.payload,
-//       };
-//     default:
-//       return state;
-//   }
-// };
+let searchedBooksReducer = (state = initialStateOfSearchedPostsReducer, action) => {
+  switch (action.type) {
+    case "SET_SEARCH_BOOK":
+      return {
+        ...state,
+        searchedBooks: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 // ######################## book reducer ###########################
 let initialStateOfBookReducer = {
   books: [],
@@ -130,7 +132,7 @@ let userReducer = (state = initialStateOfUserReducer, action) => {
 let infoCamp = {
   postsInfo: postReducer,
   userInfo: userReducer,
-  // categoryInfo: categoryReducer,
+  searchedBook: searchedBooksReducer,
   bookInfo: bookReducer
 };
 

@@ -2,25 +2,28 @@
   color: black;
 }
 
-body {
-  background: rgba(236, 153, 76, 0.74);
-}
-.sticky-bar {
+#navbar {
+  width: 100vw;
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
-  padding: 1px;
-  /* font-size: 1px; */
+  background: rgba(184, 184, 121, 0.89);
+  top: 0px;
+  z-index: 10;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background: rgb(218, 224, 122);
 }
 
 .test-card.card {
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 4px 4px 15px 2px rgba(blakc, 0.75);
+  box-shadow: 4px 4px 15px 2px rgba(black, 0.75);
   transition: 0.4s;
 }
 
-.test-card.card:not(:first-child){
+.test-card.card:not(:first-child) {
   margin-left: -1rem;
 }
 
@@ -31,3 +34,190 @@ body {
 .test-card.card:hover ~ .test-card.card {
   transform: translateX(-1rem);
 }
+
+/* .ui.top.pointing.dropdown {
+  margin: 0;
+  padding: 0;
+} */
+
+.ui.avatar.image {
+  max-width: 20px;
+  max-height: 20px;
+  border-radius: 50%;
+}
+
+/* label#profile-image > img {
+  display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: none;
+} */
+
+.error-message {
+  color: rgb(190, 25, 25);
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: bold;
+  /* font-family: "Monaco", "Brush Script MT"; */
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+div.profile-image-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #ffffff;
+  /* box-shadow: 0 0 8px 3px #b8b8b8; */
+}
+
+div.profile-image-container i {
+  position: absolute;
+  top: 150px;
+  left: 150px;
+  /* right: -70px; */
+  /* border: 1px solid; */
+  border-radius: 50%;
+  /* padding: 11px; */
+  height: 40px;
+  width: 40px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: rgb(7, 44, 112);
+  box-shadow: 0 0 8px 3px #b8b8b8;
+}
+
+div.profile-image-container img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+div.bookshow-title {
+  font-size: 1.6rem;
+  font-family: "Merriweather", "Georgia", serif;
+  font-weight: bolder;
+  margin: 10px 0 20px 0;
+}
+
+div.bookshow-description,
+div.bookshow-description p,
+div.bookshow-author a {
+  font-family: "Merriweather", "Georgia", serif;
+  margin: 10px 0 10px 0;
+}
+
+div a.forget-password {
+  font-family: "Georgia", serif;
+  font-size: 1.2rem;
+}
+
+div.bookshow-author a {
+  font-size: 1.3rem;
+}
+
+div.bookshow-description p {
+  font-size: 1.1rem;
+}
+
+div.ui.items.bookobj-container {
+  margin: 20px 0 20px 20px !important;
+}
+
+div.ui.divided.segments.bookobj {
+  margin-bottom: 20px;
+}
+
+div.ui.divided.segments.bookobj:hover {
+  transform: translate(-0.2rem, -0.2rem);
+  transition: 0.2s;
+}
+
+div.ui.cotainer.login-in-container {
+  /* background: rgb(223, 231, 152); */
+  background: url("./undraw.png");
+  padding: 40px;
+  /* border-radius: 50%; */
+  /* border: solid; */
+  /* width: 100; */
+  height: 85vh;
+}
+
+div.login-form-title {
+  font-size: 3rem;
+  font-weight: bolder;
+  margin: 10vh 0 6vh 0;
+  text-align: center;
+}
+
+a#home {
+  font-weight: bolder;
+  /* font-family: "monospace"; */
+  /* font-size: 1.3rem; */
+}
+
+div.ui.fluid.left.icon.input.login-form-password input.form-control {
+  margin: 2vh 0 2vh 0;
+}
+
+button.google-login {
+  /* margin-top: 1vh; */
+}
+
+div.line {
+  /* padding: 0 20px 0 20px; */
+  margin: 4vh 0;
+  line-height: 1px;
+  border-left: 200px solid rgb(7, 5, 134);
+  border-right: 200px solid rgb(7, 5, 134);
+  text-align: center;
+}
+
+div.ui.fluid.big.left.icon.input.username input.form-control {
+  margin: 0 0 2vh 0;
+}
+
+button.ui.fluid.big.teal.button.login-form-submit {
+  margin-top: 2vh;
+}
+
+label.confirmlabel {
+  font-size: 1rem;
+  margin: 1vh 0 1vh 0;
+  font-family: "Merriweather", "Georgia", serif;
+}
+
+div.ui.fluid.big.input.left.icon.password-confirmation {
+  margin-bottom: 2vh;
+}
+
+div.ui.fluid.big.input.left.icon.forget-email {
+  margin-bottom: 2vh;
+}
+
+div.ui.internally.grid.trending-container {
+  /* position: fixed; */
+  /* margin-bottom: 5vh; */
+}
+
+.sticky-bar {
+  /* position: -webkit-sticky; */
+  /* position: relative; */
+  /* top: 0; */
+  /* padding-top: 8vh; */
+}
+
+/* div.ui.divided.segments.bookobj{
+  overflow: scroll;
+} */

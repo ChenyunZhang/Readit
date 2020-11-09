@@ -4,16 +4,16 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 
 export const EditReview = (props) => {
   const [content, setContent] = useState(props.review.content);
-  const [imageUrl, setImageUrl] = useState(props.review.image);
+  // const [imageUrl, setImageUrl] = useState(props.review.image);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("content", content);
-    if (imageUrl !== props.review.image) {
-      formData.append("image", imageUrl);
-    }
+    // if (imageUrl !== props.review.image) {
+    //   formData.append("image", imageUrl);
+    // }
 
     fetch(`http://localhost:3000/posts/edit/${props.review.id}`, {
       method: "PATCH",
@@ -47,14 +47,14 @@ export const EditReview = (props) => {
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
 
-          {imageUrl ? <img className="ui image" src={imageUrl.url} /> : null}
+          {/* {imageUrl ? <img className="ui image" src={imageUrl.url} /> : null}
           <input
             type="file"
             accept="image/*"
             multiple={false}
             id="upload-photo"
             onChange={(e) => setImageUrl(e.target.files[0])}
-          />
+          /> */}
 
           <button type="submit" className="btn btn-primary">
             Update

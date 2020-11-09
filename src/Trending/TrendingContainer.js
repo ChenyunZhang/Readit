@@ -12,69 +12,71 @@ function TrendingContainer(props) {
 
   return (
     <>
-      <div className="ui internally grid">
+      <div className="ui internally grid trending-container">
         <div className="two wide column"></div>
         <div className="twelve wide column">
           <h1>Editor's Pick</h1>
           <div className="ui six cards">
             <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/9">
-                    <img src={props.booksInfo.books[8].imageLink} />
-                  </Link>
-                ) : null}
+               <div className="ui fluid image">
+                 {props.booksInfo.books[31] ? (
+                    <Link to="/books/9">
+                      <img 
+                      className="rounded full"
+                      src={props.booksInfo.books[32].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
-            </div>
-            <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/39">
-                    <img src={props.booksInfo.books[38].imageLink} />
-                  </Link>
-                ) : null}
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/39">
+                      <img src={props.booksInfo.books[38].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
-            </div>
-            <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/23">
-                    <img src={props.booksInfo.books[22].imageLink} />
-                  </Link>
-                ) : null}
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/23">
+                      <img src={props.booksInfo.books[22].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
-            </div>
-            <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/27">
-                    <img src={props.booksInfo.books[26].imageLink} />
-                  </Link>
-                ) : null}
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/27">
+                      <img src={props.booksInfo.books[26].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
-            </div>
 
-            <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/5">
-                    <img src={props.booksInfo.books[4].imageLink} />
-                  </Link>
-                ) : null}
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/5">
+                      <img src={props.booksInfo.books[4].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
-            </div>
 
-            <div className="test-card card">
-              <div className="ui fluid image">
-                {props.booksInfo.books[0] ? (
-                  <Link to="/books/35">
-                    <img src={props.booksInfo.books[34].imageLink} />
-                  </Link>
-                ) : null}
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/35">
+                      <img src={props.booksInfo.books[34].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
-        </div>
         <div className="two wide column"></div>
       </div>
     </>

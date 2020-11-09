@@ -13,7 +13,6 @@ function Profile(props) {
   const [error, setError] = useState("");
   const [avatar, setAvatar] = useState(props.userInfo.avatar);
 
-  // console.log(props.userInfo.id);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,10 +30,13 @@ function Profile(props) {
     })
       .then((r) => r.json())
       .then((resp) => {
+        // console.log(resp);
         if (resp.error) {
           setError(resp.error);
         } else {
           props.updateUserInfo(resp);
+          alert("Successfully Updated");
+          setPassword("");
           // props.history.push("/userhome");
         }
       });
@@ -67,34 +69,51 @@ function Profile(props) {
     });
   };
 
-  // let userPostArray = props.postsInfo.posts
-  //   .filter((post) => post.user.id === props.userInfo.id)
-  //   .map((postObj) => <PostObj key={postObj.id} post={postObj} />);
+  // let previewImage
+
+  const handSubmitedImage = (e) => {
+    setAvatar(e.target.files[0]);
+    // previewImage = URL.createObjectURL(avatar)
+  };
 
   return (
     <>
-      <div className="ui internally grid">
-        <div className="two wide column"></div>
-        <div className="six wide column">
+      <div className="ui internally celled grid">
+        <div className="one wide column"></div>
+        <div className="four wide column">
+          {/* <div className="ui internally celled grid">
+            <div className="three wide column"></div>
+            <div className="ten wide column"> */}
           <form onSubmit={handleSubmit} className="ui form">
-            <h1>Profile Update Form</h1>
-            {error ? error : null}
+            <label
+              htmlFor="embedpollfileinput"
+              className="image"
+              id="profile-image"
+            >
+              {props.userInfo.avatar ? (
+                <div className="profile-image-container">
+                  <img src={props.userInfo.avatar.url} />
+                  <i className="fa fa-edit"></i>
+                </div>
+              ) : (
+                <div className="profile-image-container">
+                  <img src="https://cdn.onlinewebfonts.com/svg/img_184513.png" />
+                  <i className="fa fa-edit"></i>
+                </div>
+              )}
+            </label>
+            {error ? <div className="error-message">{error}</div> : null}
             <br />
-
-            {avatar ? (
-              <img className="ui small image" src={avatar.url} />
-            ) : (
-              `Avatar`
-            )}
             <input
               type="file"
               accept="image/*"
               multiple={false}
-              id="upload-photo"
-              onChange={(e) => setAvatar(e.target.files[0])}
+              className="inputfile"
+              id="embedpollfileinput"
+              onChange={handSubmitedImage}
             />
 
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input
               id="username"
               type="text"
@@ -119,7 +138,7 @@ function Profile(props) {
               onChange={(e) => setEmail(e.target.value)}
             />
 
-            <label htmlFor="password">password</label>
+            <label htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
@@ -131,9 +150,10 @@ function Profile(props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <br />
 
-            <button className="ui button" type="submit">
-              update
+            <button className="ui blue button" type="submit">
+              Update profile
             </button>
           </form>
           <br />
@@ -142,11 +162,22 @@ function Profile(props) {
             type="delete account"
             onClick={handleDeleteAccount}
           >
-            delete account
+            Delete account
           </button>
+          {/* </div>
+            <div className="three wide column"></div>
+          </div> */}
         </div>
-        <div className="six wide column"></div>
-        <div className="two wide column"></div>
+        <div className="ten wide column">
+          <h1>My Books</h1>
+          <hr/>
+          <div className="ui internally celled grid">
+              <div className="eight wide column">s</div>
+              <div className="eight wide column">s</div>
+          </div>
+          
+        </div>
+        <div className="one wide column"></div>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 
 function NewReviewForm(props) {
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
+  // const [imageUrl, setImageUrl] = useState(null);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
@@ -13,9 +13,9 @@ function NewReviewForm(props) {
     formData.append("book_id", props.book.id);
     formData.append("content", content);
     formData.append("user_id", props.userInfo.id);
-    if (!!imageUrl) {
-      formData.append("image", imageUrl);
-    }
+    // if (!!imageUrl) {
+    //   formData.append("image", imageUrl);
+    // }
 
     if (props.userInfo.token) {
       fetch("http://localhost:3000/posts", {
@@ -53,13 +53,13 @@ function NewReviewForm(props) {
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
 
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           multiple={false}
           id="upload-photo"
           onChange={(e) => setImageUrl(e.target.files[0])}
-        />
+        /> */}
 
         <button type="submit" className="btn btn-primary">
           Submit

@@ -1,4 +1,3 @@
-
 import "./App.css";
 import React from "react";
 import { connect } from "react-redux";
@@ -10,13 +9,14 @@ import Error from "./Error";
 import SignupForm from "./User/SignupForm";
 import TrendingContainer from "./Trending/TrendingContainer";
 import Profile from "./User/Profile";
-import EditReview from "./Post/EditReview";
+// import EditReview from "./Post/EditReview";
 import ForgetPassword from "./User/ForgetPasswordForm"
 import ResetPassword from "./User/ResetPassword"
 import BookContainer from "./Book/BookContainer"
 import Filter from "./Trending/Filter"
 import ShowBook from "./Book/ShowBook"
 // import Temp from './Trending/temp'
+import SearchContainer from "./Search/SearchContainter"
 
 const dotenv = require('dotenv').config()
 const post_url = "http://localhost:3000/posts";
@@ -72,9 +72,6 @@ function App(props) {
         <Route exact path="/">
           <Navbar />
           <TrendingContainer />
-          {/* <Temp /> */}
-          <Filter />
-          {/* <PostContainer /> */}
           <BookContainer />
         </Route>
 
@@ -108,6 +105,11 @@ function App(props) {
         <Route exact path="/accountconfirmation">
         <Navbar />
         <ResetPassword />
+        </Route>
+
+        <Route exact path="/searchresult">
+        <Navbar />
+        <SearchContainer />
         </Route>
 
         <Route path="/books/:id" exact render={showSingleBook} />

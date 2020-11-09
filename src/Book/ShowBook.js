@@ -1,43 +1,68 @@
 import React, { useState } from "react";
 import Nav from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import NewReview from "../Post/NewReviewForm";
-import ReviewObj from "../Post/ReviewObj"
+import ReviewObj from "../Post/ReviewObj";
 
 function ShowBook(props) {
-
   const [showReviewForm, setShowReviewForm] = useState(false);
-  const temp = props.allPosts.filter(post=> post.book.id === props.currentBook.id);
-  const currentBookReviewArray = temp.map(review => <ReviewObj key={review.id} review={review}/>)
+
+  const temp = props.allPosts.filter(
+    (post) => post.book.id === props.currentBook.id
+  );
+
+  const currentBookReviewArray = temp.map((review) => (
+    <ReviewObj key={review.id} review={review} />
+  ));
+
+  const thisBook = props.allPosts.filter(
+    (post) => post.book.id === props.currentBook.id
+  );
 
   return (
     <>
       <Nav />
       <div className="ui internally grid">
-        <div className="four wide column"></div>
-        <div className="eight wide column">
-          <div>Title: {props.currentBook.title}</div>
-          <div>Rating: {props.currentBook.rating}</div>
-          <div>Rating_count: {props.currentBook.rating_count}</div>
-          <div>
-            {" "}
-            Book_average_rating: {props.currentBook.book_average_rating}
+        <div className="three wide column"></div>
+        <div className="ten wide column">
+          <div className="ui items">
+            <div className="item">
+              <div className="image">
+                <img src={props.currentBook.imageLink} />
+              </div>
+              <div className="content">
+                <div className="bookshow-title">{props.currentBook.title}</div>
+                <div className="bookshow-author">
+                  <Link to="/">by {props.currentBook.book_author}</Link>
+                </div>
+                <div className="extra">
+                  <div className="ui left pointing violet basic label">
+                    {thisBook.length === 0 ? (
+                      <>{`No one reviewed this book, be the first one`}</>
+                    ) : (
+                      <>{`${thisBook.length} reviews`}</>
+                    )}
+                  </div>
+                </div>
+                <div className="bookshow-description">
+                  <p>{props.currentBook.description}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <img src={props.currentBook.imageLink}></img>
-          <div> Description: {props.currentBook.description}</div>
-          <div>Auther: {props.currentBook.author}</div>
+          <h6>COMMUNITY REVIEWS</h6>
+          <hr />
           <button
             className="ui basic blue button"
             onClick={(e) => setShowReviewForm((preState) => !preState)}
           >
             review this book
           </button>
-          {showReviewForm ? <NewReview book={props.currentBook}/> : null}
-          <div>COMMUNITY REVIEWS</div>
-          <hr />
+          {showReviewForm ? <NewReview book={props.currentBook} /> : null}
           {currentBookReviewArray}
         </div>
-        <div className="four wide column"></div>
+        <div className="three wide column"></div>
       </div>
     </>
   );
@@ -47,6 +72,7 @@ let mapStateToProps = (gState) => {
   return {
     allPosts: gState.postsInfo.posts,
     currentUser: gState.userInfo,
+    allBooks: gState.bookInfo.books,
   };
 };
 

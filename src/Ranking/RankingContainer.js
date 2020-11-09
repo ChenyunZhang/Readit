@@ -1,10 +1,12 @@
 import React from "react";
+import Test from "../WordCloud/WordCloud";
 
 function RankingContainer() {
   return (
     <>
       <div className="ui middle aligned divided list">
-        <h1>Top 10 authors</h1>
+        <h1>Top reviewed books</h1>
+        <Test />
       </div>
     </>
   );

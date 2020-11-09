@@ -1,5 +1,5 @@
 {
-  "name": "burger_frontend",
+  "name": "readit_frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,8 +15,11 @@
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-wordcloud": "^1.2.7",
     "redux": "^4.0.5",
-    "tailwindcss": "^1.9.6",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.1",
+    "shortid": "^2.2.16",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

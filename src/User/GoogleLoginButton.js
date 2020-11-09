@@ -3,7 +3,7 @@ import { GoogleLogin } from "react-google-login";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-const clienId = process.env.REACT_APP_GOOGLE_CLIENTKEY
+const clienId = process.env.REACT_APP_GOOGLE_CLIENTKEY;
 
 // const CLIENT_ID = process.env.GOOGLE_ClIENTID
 
@@ -11,7 +11,7 @@ function GoogleLoginButton(props) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("")
+  const [imageUrl, setImageUrl] = useState("");
   const [gtoken, setGtoken] = useState("");
 
   function responseGoogle(res) {
@@ -21,7 +21,7 @@ function GoogleLoginButton(props) {
     setPassword("abc123");
     // setImageUrl(res.profileObj.imageUrl)
     // if (!!res) {
-      // createUserfromGoogle();
+    // createUserfromGoogle();
     // }
   }
 
@@ -33,19 +33,19 @@ function GoogleLoginButton(props) {
   formData.append("password", password);
   // formData.append("avatar", imageUrl);
   // function createUserfromGoogle() {
-    fetch("http://localhost:3000/usersgoogle", {
-      method: "POST",
-      body: formData,
-    })
-      .then((r) => r.json())
-      .then((resp) => {
-        // console.log(resp);
-        if (!!resp.user) {
-          props.setUserInfo(resp);
-          localStorage.token = resp.token;
-          props.history.push("/");
-        }
-      });
+  fetch("http://localhost:3000/usersgoogle", {
+    method: "POST",
+    body: formData,
+  })
+    .then((r) => r.json())
+    .then((resp) => {
+      // console.log(resp);
+      if (!!resp.user) {
+        props.setUserInfo(resp);
+        localStorage.token = resp.token;
+        props.history.push("/");
+      }
+    });
   // }
 
   const onFailure = (res) => {
@@ -56,7 +56,8 @@ function GoogleLoginButton(props) {
     <>
       <GoogleLogin
         clientId={clienId}
-        buttonText="login"
+        // buttonText="login"
+        className="google-login"
         scope="email profile"
         onSuccess={responseGoogle}
         onFailure={onFailure}
