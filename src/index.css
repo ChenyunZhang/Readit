@@ -221,3 +221,9 @@ div.ui.internally.grid.trending-container {
 /* div.ui.divided.segments.bookobj{
   overflow: scroll;
 } */
+
+div.ui.brown.inverted.segment.rankingObj:hover {
+  transform: translateX(-2px);
+  transform: translateY(-2px);
+  /* box-shadow: 0 8px 6px -6px black; */
+}

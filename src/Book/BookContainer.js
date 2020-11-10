@@ -9,6 +9,13 @@ function BookContainer(props) {
     return <BookObj key={book.id} book={book} />;
   });
 
+  const sortedBook = props.bookInfo ? props.bookInfo.sort((a,b) => b.posts.length - a.posts.length) : null
+  const topTenBook = sortedBook.slice(0,10)
+
+  const rankingArray = topTenBook.map((book) => {
+    return <RankingContainer key={book.id} book={book} />;
+  });
+
   return (
     <React.Fragment>
       <div className="ui internally grid">
@@ -21,7 +28,10 @@ function BookContainer(props) {
 
         <div className="four wide column">
           <div className="sticky-bar">
-            <RankingContainer />
+          <h1>Top reviewed books</h1>
+          <div className="ui segments">
+            {rankingArray}
+            </div>
           </div>
         </div>
 

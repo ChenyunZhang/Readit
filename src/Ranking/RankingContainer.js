@@ -1,13 +1,26 @@
 import React from "react";
-import Test from "../WordCloud/WordCloud";
+// import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-function RankingContainer() {
+function RankingContainer(props) {
   return (
     <>
-      <div className="ui middle aligned divided list">
-        <h1>Top reviewed books</h1>
-        <Test />
-      </div>
+      <Link to={`/books/${props.book.id}`} className="custom-link">
+        <div className="ui brown inverted segment rankingObj">
+        <div className="ui items">
+          <div className="ui item">
+            <div className="ui image mini">
+              <img src={props.book.imageLink} />
+            </div>
+            <div className="content">
+              <p>{props.book.title}</p>
+              <p>by {props.book.book_author}</p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </Link>
+      <br />
     </>
   );
 }
