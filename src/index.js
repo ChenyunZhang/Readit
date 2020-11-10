@@ -22,7 +22,7 @@ let postReducer = (state = initialStateOfPostReducer, action) => {
         posts: action.payload,
       };
     case "ADD_POST":
-      let copyOfPosts = [...state.posts, action.payload];
+      let copyOfPosts = [action.payload, ...state.posts];
       return {
         ...state,
         posts: copyOfPosts,

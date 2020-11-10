@@ -4,7 +4,6 @@ import { Link, withRouter, Redirect } from "react-router-dom";
 
 function NewReviewForm(props) {
   const [content, setContent] = useState("");
-  // const [imageUrl, setImageUrl] = useState(null);
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {

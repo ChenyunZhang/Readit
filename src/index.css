@@ -227,3 +227,8 @@ div.ui.brown.inverted.segment.rankingObj:hover {
   transform: translateY(-2px);
   /* box-shadow: 0 8px 6px -6px black; */
 }
+
+span.vote:hover {
+  color: rgb(131, 4, 4);
+  background: rgba(241, 238, 238, 0.836);
+}
