@@ -48,18 +48,10 @@ function NewReviewForm(props) {
           placeholder="enter your review"
           autoComplete="off"
           required
-          rows="5"
+          rows="3"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
-
-        {/* <input
-          type="file"
-          accept="image/*"
-          multiple={false}
-          id="upload-photo"
-          onChange={(e) => setImageUrl(e.target.files[0])}
-        /> */}
 
         <button type="submit" className="btn btn-primary">
           Submit

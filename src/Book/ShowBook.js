@@ -34,7 +34,7 @@ function ShowBook(props) {
               <div className="content">
                 <div className="bookshow-title">{props.currentBook.title}</div>
                 <div className="bookshow-author">
-                  <Link to="/">by {props.currentBook.book_author}</Link>
+                  <div>by {props.currentBook.book_author}</div>
                 </div>
                 <div className="extra">
                   <div className="ui left pointing violet basic label">
@@ -51,18 +51,23 @@ function ShowBook(props) {
               </div>
             </div>
           </div>
-          <h6>COMMUNITY REVIEWS</h6>
-          <hr />
-          <button
-            className="ui basic blue button"
-            onClick={(e) => setShowReviewForm((preState) => !preState)}
-          >
-            review this book
-          </button>
-          {showReviewForm ? <NewReview book={props.currentBook} /> : null}
-          {currentBookReviewArray}
+          <div className="ui internally grid">
+            <div className="three wide column"></div>
+            <div className="thirteen wide column">
+              <h3>COMMUNITY REVIEWS</h3>
+              <hr />
+              <button
+                className="ui basic blue button"
+                onClick={(e) => setShowReviewForm((preState) => !preState)}
+              >
+                review this book
+              </button>
+              {showReviewForm ? <NewReview book={props.currentBook} /> : null}
+              {currentBookReviewArray}
+            </div>
+            <div className="two wide column"></div>
+          </div>
         </div>
-        <div className="three wide column"></div>
       </div>
     </>
   );

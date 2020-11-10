@@ -43,6 +43,7 @@ export const EditReview = (props) => {
             placeholder="Enter you review"
             autoComplete="off"
             required
+            row="3"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
