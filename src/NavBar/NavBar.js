@@ -14,7 +14,11 @@ function NavBar(props) {
     <span>
       <Image
         avatar
-        src={props.userInfo.avatar ? props.userInfo.avatar.url : `https://cdn.onlinewebfonts.com/svg/img_184513.png`}
+        src={
+          props.userInfo.avatar
+            ? props.userInfo.avatar.url
+            : `https://cdn.onlinewebfonts.com/svg/img_184513.png`
+        }
       />
     </span>
   );
@@ -27,11 +31,11 @@ function NavBar(props) {
           <div className="two wide column" id="navbar-left">
             <div className="ui item">
               {props.userInfo.token ? (
-                <Link id="home" to="/userhome">
+                <Link id="home" to="/userhome" className="custom-link">
                   Read it
                 </Link>
               ) : (
-                <Link id="home" to="/">
+                <Link id="home" to="/" className="custom-link">
                   Read it
                 </Link>
               )}
@@ -74,13 +78,14 @@ function NavBar(props) {
                 <div className="ui secondary huge right menu">
                   <div className="ui item">
                     <Link
+                    className="custom-link"
                       to={localStorage.length > 0 ? "/userhome" : "/signup"}
                     >
                       Signup
                     </Link>
                   </div>
                   <div className="ui item">
-                    <Link to={localStorage.length > 0 ? "/userhome" : "/login"}>
+                    <Link className="custom-link" to={localStorage.length > 0 ? "/userhome" : "/login"}>
                       Login
                     </Link>
                   </div>

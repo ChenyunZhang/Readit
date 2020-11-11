@@ -10,19 +10,25 @@ import SignupForm from "./User/SignupForm";
 import TrendingContainer from "./Trending/TrendingContainer";
 import Profile from "./User/Profile";
 // import EditReview from "./Post/EditReview";
-import ForgetPassword from "./User/ForgetPasswordForm"
-import ResetPassword from "./User/ResetPassword"
-import BookContainer from "./Book/BookContainer"
-import Filter from "./Trending/Filter"
-import ShowBook from "./Book/ShowBook"
+import ForgetPassword from "./User/ForgetPasswordForm";
+import ResetPassword from "./User/ResetPassword";
+import BookContainer from "./Book/BookContainer";
+import Filter from "./Trending/Filter";
+import ShowBook from "./Book/ShowBook";
 // import Temp from './Trending/temp'
-import SearchContainer from "./Search/SearchContainter"
+import SearchContainer from "./Search/SearchContainter";
 
-const dotenv = require('dotenv').config()
+const dotenv = require("dotenv").config();
 const post_url = "http://localhost:3000/posts";
-// const catgory_url = "http://localhost:3000/categories";
 const book_url = "http://localhost:3000/books";
-const promises = Promise.all([fetch(post_url), fetch(book_url)]);
+const voteup_url = "http://localhost:3000/voteups";
+const votedown_url = "http://localhost:3000/votedowns";
+const promises = Promise.all([
+  fetch(post_url),
+  fetch(book_url),
+  fetch(voteup_url),
+  fetch(votedown_url),
+]);
 
 function App(props) {
   useEffect(() => {
@@ -32,6 +38,8 @@ function App(props) {
         props.setPosts(res[0]);
         // props.setCategories(res[1]);
         props.setBooks(res[1]);
+        props.setVoteups(res[2]);
+        props.setVotedowns(res[3]);
       });
     if (localStorage.token) {
       fetch("http://localhost:3000/keep_logged_in", {
@@ -49,8 +57,6 @@ function App(props) {
     }
   }, []);
 
-
-
   const showSingleBook = (routerProps) => {
     let id = routerProps.match.params.id;
     let num_id = parseInt(id);
@@ -64,7 +70,6 @@ function App(props) {
       }
     }
   };
-  
 
   return (
     <>
@@ -76,17 +81,17 @@ function App(props) {
         </Route>
 
         <Route exact path="/login">
-        <Navbar />
+          <Navbar />
           <LoginForm />
         </Route>
 
         <Route exact path="/signup">
-        <Navbar />
+          <Navbar />
           <SignupForm />
         </Route>
 
         <Route exact path="/profile">
-        <Navbar />
+          <Navbar />
           <Profile />
         </Route>
 
@@ -98,18 +103,18 @@ function App(props) {
         </Route>
 
         <Route exact path="/resetpassword">
-        <Navbar />
-        <ForgetPassword />
+          <Navbar />
+          <ForgetPassword />
         </Route>
 
         <Route exact path="/accountconfirmation">
-        <Navbar />
-        <ResetPassword />
+          <Navbar />
+          <ResetPassword />
         </Route>
 
         <Route exact path="/searchresult">
-        <Navbar />
-        <SearchContainer />
+          <Navbar />
+          <SearchContainer />
         </Route>
 
         <Route path="/books/:id" exact render={showSingleBook} />
@@ -143,44 +148,60 @@ const setBooks = (bookArray) => {
   };
 };
 
+const setVoteups = (voteUpArray) => {
+  return {
+    type: "SET_VOTEUP",
+    payload: voteUpArray,
+  };
+};
+
+const setVotedowns = (voteDownArray) => {
+  return {
+    type: "SET_VOTEDOWN",
+    payload: voteDownArray,
+  };
+};
+
 let mapDispatchToProps = {
   setPosts: setPosts,
   setUserInfo: setUserInfo,
-  setBooks: setBooks
+  setBooks: setBooks,
+  setVoteups: setVoteups,
+  setVotedowns: setVotedowns,
 };
 
 let mapStateToProps = (gState) => {
   return {
     allPosts: gState.postsInfo.posts,
-    allBooks: gState.bookInfo.books
+    allBooks: gState.bookInfo.books,
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
 
+// const showSinglePost = (routerProps) => {
+//   let id = routerProps.match.params.id;
+//   let num_id = parseInt(id);
+//   if (props.allPosts[0]) {
+//     let foundPost = props.allPosts.find((post) => post.id === num_id);
+//     if (foundPost) {
+//       return <ShowPost {...routerProps} currentPost={foundPost} />;
+//     } else {
+//       return <Error />;
+//     }
+//   }
+// };
 
-  // const showSinglePost = (routerProps) => {
-  //   let id = routerProps.match.params.id;
-  //   let num_id = parseInt(id);
-  //   if (props.allPosts[0]) {
-  //     let foundPost = props.allPosts.find((post) => post.id === num_id);
-  //     if (foundPost) {
-  //       return <ShowPost {...routerProps} currentPost={foundPost} />;
-  //     } else {
-  //       return <Error />;
-  //     }
-  //   }
-  // };
+// const editSinglePost = (routerProps) => {
+//   let id = routerProps.match.params.id;
+//   let num_id = parseInt(id);
+//   if (props.allPosts[0]) {
+//     let foundPost = props.allPosts.find((post) => post.id === num_id);
+//     if (foundPost) {
+//       return <EditReview {...routerProps} currentPost={foundPost} />;
+//     } else {
+//       return <Error />;
+//     }
+//   }
+// };
 
-  // const editSinglePost = (routerProps) => {
-  //   let id = routerProps.match.params.id;
-  //   let num_id = parseInt(id);
-  //   if (props.allPosts[0]) {
-  //     let foundPost = props.allPosts.find((post) => post.id === num_id);
-  //     if (foundPost) {
-  //       return <EditReview {...routerProps} currentPost={foundPost} />;
-  //     } else {
-  //       return <Error />;
-  //     }
-  //   }
-  // };

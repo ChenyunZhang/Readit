@@ -15,15 +15,15 @@ function TrendingContainer(props) {
       <div className="ui internally grid trending-container">
         <div className="two wide column"></div>
         <div className="twelve wide column">
-          <h1>Editor's Pick</h1>
+          <div className="headers">Editor's Pick</div>
           <div className="ui six cards">
             <div className="test-card card">
                <div className="ui fluid image">
-                 {props.booksInfo.books[31] ? (
+                 {props.booksInfo.books[0] ? (
                     <Link to="/books/9">
                       <img 
                       className="rounded full"
-                      src={props.booksInfo.books[32].imageLink} />
+                      src={props.booksInfo.books[8].imageLink} />
                     </Link>
                   ) : null}
                 </div>
@@ -71,6 +71,36 @@ function TrendingContainer(props) {
                   {props.booksInfo.books[0] ? (
                     <Link to="/books/35">
                       <img src={props.booksInfo.books[34].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/33">
+                      <img src={props.booksInfo.books[32].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/10">
+                      <img src={props.booksInfo.books[11].imageLink} />
+                    </Link>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="test-card card">
+                <div className="ui fluid image">
+                  {props.booksInfo.books[0] ? (
+                    <Link to="/books/14">
+                      <img src={props.booksInfo.books[11].imageLink} />
                     </Link>
                   ) : null}
                 </div>

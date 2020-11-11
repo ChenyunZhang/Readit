@@ -8,8 +8,8 @@ import { Dropdown, Button, Header, Icon, Modal } from "semantic-ui-react";
 function ReviewObj(props) {
   const [open, setOpen] = React.useState(false);
   const [content, setContent] = useState(props.review.content);
-  const [error, setError] = useState("");
 
+  // console.log(props.voteups);
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -25,7 +25,7 @@ function ReviewObj(props) {
       .then((r) => r.json())
       .then((resp) => {
         if (resp.error) {
-          setError(resp.error);
+          console.log(resp.error);
         } else {
           props.updatePost(resp);
           setOpen(false);
@@ -59,6 +59,74 @@ function ReviewObj(props) {
     });
   };
 
+  const handleVoteup = () => {
+    if (!!localStorage.length <= 0) {
+      alert("Please login to vote");
+    } else if (
+      !props.voteups.filter(
+        (voteup) =>
+          voteup.user.id === props.currentUser.id &&
+          voteup.post.id === props.review.id
+      )[0]
+    ) {
+      fetch("http://localhost:3000/voteups", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          post_id: props.review.id,
+          user_id: props.currentUser.id,
+        }),
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          props.createVoteup(resp);
+          console.log(resp);
+        });
+    } else {
+      console.log("a");
+      // const voteupObj = props.voteups.filter((voteup) =>
+      //   voteup.user.id === props.currentUser.id &&
+      //   voteup.post.id === props.review.id)
+      //   console.log(voteupObj)
+      //   fetch(`http://localhost:3000/voteups/${voteupObj.id}`, {
+      //       method: "DELETE"
+      //   })
+      //   .then(res => res.json())
+      //   .then((deletedObj) => {
+      //       props.deleteStoreFromState(deletedObj.id)
+      //   })
+    }
+  };
+
+  const handleVotedown = () => {
+    console.log(props.review);
+    if (!!localStorage.length > 0) {
+      //     fetch("localhost:3000/voteups", {
+      //       method: "POST",
+      //       headers: {
+      //           "Content-Type": "Application/json"
+      //       },
+      //       body: JSON.stringify({
+      //         storeName: this.state.storeName,
+      //         orders: this.state.orders
+      //     })
+      // })
+      //     .then(r => r.json())
+      //     .then()
+    } else {
+      alert("Please login to vote");
+    }
+  };
+  console.log(
+    props.voteups.filter(
+      (voteup) =>
+        voteup.user.id === props.currentUser.id &&
+        voteup.post.id === props.review.id
+    )
+  );
+
   return (
     <>
       <div className="ui fluid card">
@@ -90,7 +158,6 @@ function ReviewObj(props) {
                         <Header icon>Edit Review</Header>
                         <Modal.Content>
                           <form onSubmit={handleSubmit} className="ui form">
-                            {error ? <h3>{error}</h3> : null}
                             <label htmlFor="content">What did you think</label>
                             <textarea
                               id="content"
@@ -104,7 +171,10 @@ function ReviewObj(props) {
                               onChange={(e) => setContent(e.target.value)}
                             ></textarea>
 
-                            <button type="submit" className="btn btn-primary">
+                            <button
+                              type="submit"
+                              className="ui button fluid inverted blue"
+                            >
                               Update
                             </button>
                           </form>
@@ -125,13 +195,24 @@ function ReviewObj(props) {
         <div className="content">{props.review.content}</div>
         <div className="content">
           16
-          <span className="vote">
-          <i className="caret up icon"></i>
-          upvote
-          </span>
-          <span className="vote">
-          <i className="caret down icon"></i>
-          downvote
+          {!!props.voteups.filter(
+            (voteup) =>
+              voteup.user.id === props.currentUser.id &&
+              voteup.post.id === props.review.id
+          )[0] ? (
+            <span className="vote voted" onClick={handleVoteup}>
+              <i className="thumbs up red icon"></i>
+              upvote
+            </span>
+          ) : (
+            <span className="vote" onClick={handleVoteup}>
+              <i className="thumbs up outline icon"></i>
+              upvote
+            </span>
+          )}
+          <span className="vote" onClick={handleVotedown}>
+            <i className="thumbs down icon"></i>
+            downvote
           </span>
           <span className="right floated">
             <i className="comment icon"></i>
@@ -147,6 +228,8 @@ let mapStateToProps = (gState) => {
   return {
     currentUser: gState.userInfo,
     allBooks: gState.bookInfo.books,
+    voteups: gState.voteups.voteups,
+    votedowns: gState.votedowns.votedowns,
   };
 };
 
@@ -164,9 +247,24 @@ const updatePost = (updateSinglePost) => {
   };
 };
 
+const createVoteup = (voteObj) => {
+  return {
+    type: "ADD_VOTEUP",
+    payload: voteObj,
+  };
+};
+
+// const createVoteup = (voteObj) => {
+//   return {
+//     type: "UPDATE_POST",
+//     payload: updateSinglePost,
+//   };
+// }
+
 let mapDispatch = {
   deletePost: deletePost,
   updatePost: updatePost,
+  createVoteup: createVoteup 
 };
 
 export default connect(mapStateToProps, mapDispatch)(ReviewObj);

@@ -90,7 +90,7 @@ function SignupForm(props) {
 
               <label
                 htmlFor="signup-avatar"
-                class="ui blue big basic button fluid"
+                className="ui blue big basic button fluid"
               >
                 {!imageUrl ? `Upload avatar` : `Uploaded one image`}
               </label>

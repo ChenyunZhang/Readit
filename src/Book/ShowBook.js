@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import ReviewObj from "../Post/ReviewObj";
 
 function ShowBook(props) {
-  console.log(props);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
@@ -58,7 +57,7 @@ function ShowBook(props) {
       <Nav />
       <div className="ui internally grid">
         <div className="three wide column"></div>
-        <div className="ten wide column">
+        <div className="ten wide column showbook">
           <div className="ui items">
             <div className="item">
               <div className="image">
@@ -90,15 +89,15 @@ function ShowBook(props) {
               <h3>COMMUNITY REVIEWS</h3>
               <hr />
               <div
-                className="ui basic inverted green label"
+                className="ui basic inverted brown label"
                 onClick={(e) => setShowReviewForm((preState) => !preState)}
               >
                 review this book
               </div>
               {showReviewForm ? (
                 <form onSubmit={handleSubmit} className="ui form">
-                  {error ? <h3>{error}</h3> : null}
-                  <label htmlFor="content">What did you think</label>
+                  {error ? <div className="error-message">{error}</div> : null}
+                  <label htmlFor="content" className="a">What did you think</label>
                   <textarea
                     id="content"
                     className="field"
@@ -111,7 +110,7 @@ function ShowBook(props) {
                     onChange={(e) => setContent(e.target.value)}
                   ></textarea>
 
-                  <button type="submit" className="btn btn-primary">
+                  <button type="submit" className="ui basic inverted brown label">
                     Submit
                   </button>
                 </form>

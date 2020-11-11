@@ -38,7 +38,7 @@ function NewReviewForm(props) {
   return (
     <>
       <form onSubmit={handleSubmit} className="ui form">
-        {error ? <h3>{error}</h3> : null}
+        {error ? <div className="error-message">{error}</div> : null}
         <label htmlFor="content">What did you think</label>
         <textarea
           id="content"
@@ -67,9 +67,9 @@ const addPost = (singlePost) => {
   };
 };
 
-let mapStateToProps = (globalState) => {
+let mapStateToProps = (gState) => {
   return {
-    userInfo: globalState.userInfo,
+    userInfo: gState.userInfo,
   };
 };
 

@@ -18,17 +18,17 @@ function BookContainer(props) {
 
   return (
     <React.Fragment>
-      <div className="ui internally grid">
+      <div className="ui internally grid book-container">
         <div className="two wide column"></div>
 
         <div className="eight wide column">
-          <h1>Popular Books</h1>
+          <div className="sub-header">Popular Books</div>
           {bookArray}
         </div>
 
-        <div className="four wide column">
+        <div className="four wide column rankking-Array">
           <div className="sticky-bar">
-          <h1>Top reviewed books</h1>
+          <div className="sub-header top-reviewed">Top reviewed books</div>
           <div className="ui segments">
             {rankingArray}
             </div>

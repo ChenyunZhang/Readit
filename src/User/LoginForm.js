@@ -45,7 +45,7 @@ function LoginForm(props) {
             <form onSubmit={handleSubmit} className="ui form">
               <div className="login-form-title">Read it</div>
               {error ? <div className="error-message">{error}</div> : null}
-              <br/>
+              <br />
               <div className="ui fluid big left icon input">
                 <input
                   type="email"
