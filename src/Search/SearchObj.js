@@ -1,7 +1,7 @@
 import React from "react";
 
 function SearchObj(props) {
-  console.log(props.item);
+  // console.log(props.item);
   return (
     <React.Fragment>
       <a href={props.item.volumeInfo.infoLink} target="blank">

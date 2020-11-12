@@ -3,8 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function RankingContainer(props) {
+  
   return (
-    <>
+    <div className="scrolldownmenu">
       <Link to={`/books/${props.book.id}`} className="custom-link">
         <div className="ui brown inverted segment rankingObj">
         <div className="ui items">
@@ -14,14 +15,14 @@ function RankingContainer(props) {
             </div>
             <div className="content">
               <p>{props.book.title}</p>
-              <p>by {props.book.book_author}</p>
+              <p>{props.book.book_author ? `by ${props.book.book_author}` : null}</p>
             </div>
           </div>
           </div>
         </div>
       </Link>
       <br />
-    </>
+    </div>
   );
 }
 

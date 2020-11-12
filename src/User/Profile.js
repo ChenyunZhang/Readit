@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
-// import PostObj from "../Post/PostObj";
+import ProfileReadingBookObj from "./ProfileReadingBookObj";
 
 function Profile(props) {
   const [email, setEmail] = useState(props.userInfo.email);
@@ -12,6 +12,7 @@ function Profile(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [avatar, setAvatar] = useState(props.userInfo.avatar);
+  const [sortProfileBook, setProfileBook] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,18 +70,51 @@ function Profile(props) {
     });
   };
 
-  // let previewImage
-
   const handSubmitedImage = (e) => {
     setAvatar(e.target.files[0]);
     // previewImage = URL.createObjectURL(avatar)
   };
 
+  const profileReview = props.postsInfo.filter(
+    (review) => review.user.id === props.userInfo.id
+  );
+
+  let tempArr = [];
+  profileReview.filter((r) => {
+    if (tempArr.length === 0) {
+      tempArr.push(r);
+    } else if (!tempArr.map((temp) => temp.book.id).includes(r.book.id)) {
+      tempArr.push(r);
+    }
+  });
+
+  // console.log(tempArr.map((temp) => temp.book.title));
+  if (sortProfileBook === "author") {
+    tempArr.sort(function (a, b) {
+      return a.book.book_author < b.book.book_author ? 1 : -1;
+    });
+  } else if (sortProfileBook === "book") {
+    tempArr.sort(function (a, b) {
+      return a.book.title > b.book.title ? 1 : -1;
+    });
+  } else if (sortProfileBook === "oldest") {
+    tempArr.sort(function (a, b) {
+      return a.book.created_at < b.book.created_at ? 1 : -1;
+    });
+  } else if (sortProfileBook === "newest") {
+    tempArr = tempArr;
+  }
+  // console.log(tempArr.map((temp) => temp.book.title));
+
+  const profileReviewArray = tempArr.map((reviewObj) => (
+    <ProfileReadingBookObj key={reviewObj.id} reviewObj={reviewObj} />
+  ));
+
   return (
     <>
-      <div className="ui internally celled grid">
+      <div className="ui internally grid">
         <div className="one wide column"></div>
-        <div className="four wide column">
+        <div className="four wide column profile">
           {/* <div className="ui internally celled grid">
             <div className="three wide column"></div>
             <div className="ten wide column"> */}
@@ -156,6 +190,7 @@ function Profile(props) {
               Update profile
             </button>
           </form>
+
           <br />
           <button
             className="ui red button"
@@ -164,18 +199,21 @@ function Profile(props) {
           >
             Delete account
           </button>
-          {/* </div>
-            <div className="three wide column"></div>
-          </div> */}
         </div>
-        <div className="ten wide column">
-          <h1>My Books</h1>
-          <hr/>
-          <div className="ui internally celled grid">
-              <div className="eight wide column">s</div>
-              <div className="eight wide column">s</div>
-          </div>
-          
+        <div className="ten wide column profile-book-page">
+          <h2>My Books</h2>
+          <select
+            className="ui search dropdown"
+            onChange={(e) => setProfileBook(e.target.value)}
+          >
+            <option value="newest">Newest reviewed</option>
+            <option value="oldest">Oldest reviewed</option>
+            <option value="author">Author name</option>
+            <option value="book">Book name</option>
+          </select>
+
+          <hr />
+          <div className="ui five cards">{profileReviewArray}</div>
         </div>
         <div className="one wide column"></div>
       </div>
@@ -206,7 +244,7 @@ let mapDispatch = {
 const mapStateToProps = (gState) => {
   return {
     userInfo: gState.userInfo,
-    postsInfo: gState.postsInfo,
+    postsInfo: gState.postsInfo.posts,
   };
 };
 

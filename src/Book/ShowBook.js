@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Nav from "../NavBar/NavBar";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 // import NewReview from "../Post/NewReviewForm";
 import ReviewObj from "../Post/ReviewObj";
@@ -52,6 +51,13 @@ function ShowBook(props) {
     }
   };
 
+  const handleNewReview = () => {
+    setError("")
+    setContent("")
+    setShowReviewForm(preState => !preState)
+  }
+  
+
   return (
     <>
       <Nav />
@@ -66,7 +72,7 @@ function ShowBook(props) {
               <div className="content">
                 <div className="bookshow-title">{props.currentBook.title}</div>
                 <div className="bookshow-author">
-                  <div>by {props.currentBook.book_author}</div>
+                  <div>{props.currentBook.book_author ? `by ${props.currentBook.book_author}` : null}</div>
                 </div>
                 <div className="extra">
                   <div className="ui left pointing violet basic label">
@@ -90,7 +96,7 @@ function ShowBook(props) {
               <hr />
               <div
                 className="ui basic inverted brown label"
-                onClick={(e) => setShowReviewForm((preState) => !preState)}
+                onClick={handleNewReview}
               >
                 review this book
               </div>

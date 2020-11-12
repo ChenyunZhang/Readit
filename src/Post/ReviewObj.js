@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
 // import EditReview from "./EditReview";
-import { Dropdown, Button, Header, Icon, Modal } from "semantic-ui-react";
+import { Dropdown, Header, Modal } from "semantic-ui-react";
 
 function ReviewObj(props) {
   const [open, setOpen] = React.useState(false);
   const [content, setContent] = useState(props.review.content);
+  const [error, setError] = useState("");
 
   // console.log(props.voteups);
   const handleSubmit = (e) => {
@@ -62,6 +63,25 @@ function ReviewObj(props) {
   const handleVoteup = () => {
     if (!!localStorage.length <= 0) {
       alert("Please login to vote");
+    } else if (!props.voteups.filter(vote => vote.post_id === props.review.id)[0]) {
+      fetch("http://localhost:3000/voteups", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          post_id: props.review.id,
+          user_id: props.currentUser.id,
+        }),
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          if(resp.error){
+            setError(resp.error)
+          }else{
+            props.createVoteup(resp);
+          }
+        });
     } else if (
       !props.voteups.filter(
         (voteup) =>
@@ -81,54 +101,86 @@ function ReviewObj(props) {
       })
         .then((r) => r.json())
         .then((resp) => {
-          props.createVoteup(resp);
-          console.log(resp);
+          if(resp.error){
+            setError(resp.error)
+          }else{
+            props.createVoteup(resp);
+          }
         });
     } else {
-      console.log("a");
-      // const voteupObj = props.voteups.filter((voteup) =>
-      //   voteup.user.id === props.currentUser.id &&
-      //   voteup.post.id === props.review.id)
-      //   console.log(voteupObj)
-      //   fetch(`http://localhost:3000/voteups/${voteupObj.id}`, {
-      //       method: "DELETE"
-      //   })
-      //   .then(res => res.json())
-      //   .then((deletedObj) => {
-      //       props.deleteStoreFromState(deletedObj.id)
-      //   })
+      const voteObj =props.voteups.filter(vote => vote.post_id === props.review.id && vote.user.id === props.currentUser.id)[0]
+        fetch(`http://localhost:3000/voteups/${voteObj.id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then((deletedObj) => {
+          props.deleteVoteup(deletedObj)
+        })
     }
   };
 
   const handleVotedown = () => {
-    console.log(props.review);
-    if (!!localStorage.length > 0) {
-      //     fetch("localhost:3000/voteups", {
-      //       method: "POST",
-      //       headers: {
-      //           "Content-Type": "Application/json"
-      //       },
-      //       body: JSON.stringify({
-      //         storeName: this.state.storeName,
-      //         orders: this.state.orders
-      //     })
-      // })
-      //     .then(r => r.json())
-      //     .then()
-    } else {
+    if (!!localStorage.length <= 0) {
       alert("Please login to vote");
+    } else if (!props.votedowns.filter(vote => vote.post_id === props.review.id)[0]) {
+      fetch("http://localhost:3000/votedowns", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          post_id: props.review.id,
+          user_id: props.currentUser.id,
+        }),
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          if(resp.error){
+            setError(resp.error)
+          }else{
+            props.createVotedown(resp);
+          }
+        });
+    } else if (
+      !props.votedowns.filter(
+        (votedown) =>
+          votedown.user.id === props.currentUser.id &&
+          votedown.post.id === props.review.id
+      )[0]
+    ) {
+      fetch("http://localhost:3000/votedowns", {
+        method: "POST",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({
+          post_id: props.review.id,
+          user_id: props.currentUser.id,
+        }),
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          if(resp.error){
+            setError(resp.error)
+          }else{
+            props.createVotedown(resp);
+          }
+        });
+    } else {
+      const voteObj =props.votedowns.filter(vote => vote.post_id === props.review.id && vote.user.id === props.currentUser.id)[0]
+        fetch(`http://localhost:3000/votedowns/${voteObj.id}`, {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then((deletedObj) => {
+          props.deleteVotedown(deletedObj)
+        })
     }
   };
-  console.log(
-    props.voteups.filter(
-      (voteup) =>
-        voteup.user.id === props.currentUser.id &&
-        voteup.post.id === props.review.id
-    )
-  );
 
   return (
-    <>
+    <React.Fragment>
+      {error ? error : null}
       <div className="ui fluid card">
         <div className="content">
           {props.review.user.avatar ? (
@@ -194,33 +246,64 @@ function ReviewObj(props) {
         </div>
         <div className="content">{props.review.content}</div>
         <div className="content">
-          16
-          {!!props.voteups.filter(
-            (voteup) =>
-              voteup.user.id === props.currentUser.id &&
-              voteup.post.id === props.review.id
-          )[0] ? (
-            <span className="vote voted" onClick={handleVoteup}>
-              <i className="thumbs up red icon"></i>
-              upvote
-            </span>
-          ) : (
-            <span className="vote" onClick={handleVoteup}>
-              <i className="thumbs up outline icon"></i>
-              upvote
-            </span>
-          )}
+
+          {(props.voteups.filter(voteup => voteup.post.id === props.review.id).length) - (props.votedowns.filter(votedown => votedown.post.id === props.review.id).length)}
+
+          {props.voteups.filter(voteup => voteup.post.id === props.review.id)[0] ?
+            <>
+            {props.voteups.filter(
+              (voteup) =>
+                voteup.user.id === props.currentUser.id &&
+                voteup.post.id === props.review.id
+            )[0] ? (
+              <span className="vote voted" onClick={handleVoteup}>
+                <i className="thumbs up red icon"></i>
+                upvote
+              </span>
+            ) : (
+              <span className="vote" onClick={handleVoteup}>
+                <i className="thumbs up outline icon"></i>
+                upvote
+              </span>
+            )}
+            </>
+          : 
+          <span className="vote" onClick={handleVoteup}>
+          <i className="thumbs up outline icon"></i>
+          upvote
+          </span>}
+
+          {props.votedowns.filter(votedown => votedown.post.id === props.review.id)[0] ?
+            <>
+            {props.votedowns.filter(
+              (votedown) =>
+                votedown.user.id === props.currentUser.id &&
+                votedown.post.id === props.review.id
+            )[0] ? (
+              <span className="vote voted" onClick={handleVotedown}>
+                <i className="thumbs down red icon"></i>
+                downvote
+              </span>
+            ) : (
+              <span className="vote" onClick={handleVotedown}>
+                <i className="thumbs down outline icon"></i>
+                downvote
+              </span>
+            )}
+            </>
+          : 
           <span className="vote" onClick={handleVotedown}>
-            <i className="thumbs down icon"></i>
-            downvote
-          </span>
-          <span className="right floated">
+          <i className="thumbs down outline icon"></i>
+          downvote
+          </span>}
+
+          {/* <span className="right floated">
             <i className="comment icon"></i>
             reply
-          </span>
+          </span> */}
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }
 
@@ -254,17 +337,34 @@ const createVoteup = (voteObj) => {
   };
 };
 
-// const createVoteup = (voteObj) => {
-//   return {
-//     type: "UPDATE_POST",
-//     payload: updateSinglePost,
-//   };
-// }
+const deleteVoteup = (voteObj) => {
+  return {
+    type: "DELETE_VOTEUP",
+    payload: voteObj,
+  };
+}
+
+const createVotedown = (voteObj) => {
+  return {
+    type: "ADD_VOTEDOWN",
+    payload: voteObj,
+  };
+};
+
+const deleteVotedown = (voteObj) => {
+  return {
+    type: "DELETE_VOTEDOWN",
+    payload: voteObj,
+  };
+}
 
 let mapDispatch = {
   deletePost: deletePost,
   updatePost: updatePost,
-  createVoteup: createVoteup 
+  createVoteup: createVoteup,
+  deleteVoteup: deleteVoteup,
+  createVotedown: createVotedown,
+  deleteVotedown: deleteVotedown
 };
 
 export default connect(mapStateToProps, mapDispatch)(ReviewObj);

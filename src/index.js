@@ -53,67 +53,67 @@ let postReducer = (state = initialStateOfPostReducer, action) => {
   }
 };
 // ######################## voteup reducer ###########################
-  let initialStateOfVoteupReducer = {
-    voteups: []
-  };
+let initialStateOfVoteupReducer = {
+  voteups: [],
+};
 
-  let voteUpReducer = (state = initialStateOfVoteupReducer, action) => {
-    console.log(action)
-    switch (action.type) {
-      case "SET_VOTEUP":
-        return {
-          ...state,
-          voteups: action.payload,
-        };
-      case "ADD_VOTEUP":
-        let copyOfVoteups = [action.payload, ...state.voteups];
-        return {
-          ...state,
-          voteups: copyOfVoteups,
-        };
-      // case "DELETE_VOTEUP":
-      //   let copyOfPosts_2 = state.posts.filter(
-      //     (post) => post.id !== action.payload.id
-      //   );
-      //   return {
-      //     ...state,
-      //     posts: copyOfPosts_2,
-      //   };
-      default:
-        return state;
-    }
-  };
+let voteUpReducer = (state = initialStateOfVoteupReducer, action) => {
+  // console.log(action)
+  switch (action.type) {
+    case "SET_VOTEUP":
+      return {
+        ...state,
+        voteups: action.payload,
+      };
+    case "ADD_VOTEUP":
+      let copyOfVoteups = [action.payload, ...state.voteups];
+      return {
+        ...state,
+        voteups: copyOfVoteups,
+      };
+    case "DELETE_VOTEUP":
+      let copyOfVoteup_2 = state.voteups.filter(
+        voteup => voteup.id !== action.payload.id
+      );
+      return {
+        ...state,
+        voteups: copyOfVoteup_2
+      };
+    default:
+      return state;
+  }
+};
 
 // ######################## votedown reducer ###########################
-  let initialStateOfVotedownReducer = {
-    votedowns: []
-  };
+let initialStateOfVotedownReducer = {
+  votedowns: [],
+};
 
-  let voteDownReducer = (state = initialStateOfVotedownReducer, action) => {
-    switch (action.type) {
-      case "SET_VOTEDOWN":
-        return {
-          ...state,
-          votedowns: action.payload,
-        };
-      // case "ADD_POST":
-      //   let copyOfPosts = [action.payload, ...state.posts];
-      //   return {
-      //     ...state,
-      //     posts: copyOfPosts,
-      //   };
-      // case "DELETE_POST":
-      //   let copyOfPosts_2 = state.posts.filter(
-      //     (post) => post.id !== action.payload.id
-      //   );
-      //   return {
-      //     ...state,
-      //     posts: copyOfPosts_2,
-      //   };
-      default:
-        return state;
-    }
-  };
+let voteDownReducer = (state = initialStateOfVotedownReducer, action) => {
+  switch (action.type) {
+    case "SET_VOTEDOWN":
+      return {
+        ...state,
+        votedowns: action.payload,
+      };
+    case "ADD_VOTEDOWN":
+      let copyOfVotedowns = [action.payload, ...state.votedowns];
+      return {
+        ...state,
+        votedowns: copyOfVotedowns
+      };
+    case "DELETE_VOTEDOWN":
+      let copyOfVotedowns_2 = state.votedowns.filter(
+        votedown => votedown.id !== action.payload.id
+      );
+      return {
+        ...state,
+        votedowns: copyOfVotedowns_2
+      };
+    default:
+      return state;
+  }
+};
 
 // ######################## searchedBook reducer ###########################
 let initialStateOfSearchedPostsReducer = {
@@ -207,7 +207,7 @@ let infoCamp = {
   searchedBook: searchedBooksReducer,
   bookInfo: bookReducer,
   voteups: voteUpReducer,
-  votedowns: voteDownReducer
+  votedowns: voteDownReducer,
 };
 
 let rootReducer = combineReducers(infoCamp);
