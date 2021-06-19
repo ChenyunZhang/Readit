@@ -9,7 +9,7 @@
 
 ## About
 <p> 
-Read It is designed for reader to shared their thought for the books they've or find out how other readers think for the book. User can read the book description without login. Users can easily login with their google account to review the books, or vote for other readers' reviews. Read It also enabled "forgot password" feature for users to retrieve their accounts back.
+<em>Read It<em> is designed for readers to shared their thought on the books they've or find out how other readers think about the book. Users can read the book description without login. Users can easily log in with their google account to review the books or vote for other readers' reviews. Read It also enabled the "forgot password" feature for users to retrieve their accounts back.
 </p>
 
 <div>
